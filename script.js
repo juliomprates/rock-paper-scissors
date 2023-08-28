@@ -41,7 +41,36 @@ function playRound(playerChoice, computerChoice) {
     return result;
 };
 
-let computerSelection = computerTurn().toLowerCase();
-let playerSelection = prompt("Your turn: Rock, Paper or Scissors?").toLowerCase();
+//loops the single round function 5 times and creates a score for the player and computer
+function game() {
+    let playerScore = 0;
+    let computerScore = 0;
+    
+    let i = 0;
+    while (i < 5) {
+        let computerSelection = computerTurn().toLowerCase(); //gets the random array item as a selection
+        let playerSelection = prompt("Your turn: Rock, Paper or Scissors?").toLowerCase(); //gets player input as his selection
+        console.log(playRound(playerSelection, computerSelection));
 
-console.log(playRound(playerSelection, computerSelection));
+        //checks the result to update the score
+        if (getWinner(playerSelection, computerSelection) === true) {
+            playerScore = playerScore + 1;
+        } else if (getWinner(playerSelection, computerSelection) === false) {
+            computerScore = computerScore + 1;
+        };
+        console.log("Your score: " + playerScore + " " + "Computer score: " + computerScore);
+
+        i++;
+    };
+    //reports who won the game
+    if (playerScore == computerScore) {
+        console.log("Tie Game");
+    } else if (playerScore > computerScore) {
+        console.log("You won the game! Congrats!");
+    } else if (computerScore > playerScore) {
+        console.log("Computer won the game!")
+    };
+};
+
+game();
+
