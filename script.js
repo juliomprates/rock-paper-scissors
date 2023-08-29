@@ -1,4 +1,4 @@
-//the computer randomly choose between Rock, Paper and Scissors
+//This function return a random array item to assign it's value on a variable
 function computerTurn() {
     let result;
     const choices = ["Rock", "Paper", "Scissors"];
@@ -6,10 +6,7 @@ function computerTurn() {
     return result;
 };
 
-
-//determines the winner comparing both player and computer choices
-// - true: the player wins
-// - false: the computer wins
+//This function compares 2 values and return a boolean to be used as condition
 function getWinner(player, computer) {
     if (player === "rock" && computer === "scissors") {
         return true;
@@ -26,7 +23,7 @@ function getWinner(player, computer) {
     }
 };
 
-//return the result for a single round
+//This function compares 2 values and return a string to be used as output
 function playRound(playerChoice, computerChoice) {
     let result;
     
@@ -41,34 +38,38 @@ function playRound(playerChoice, computerChoice) {
     return result;
 };
 
-//loops the single round function 5 times and creates a score for the player and computer
+/*
+This function loops playRound() to be executed 5 times;
+uses getWinner() as condition to increment playerScore or computerScore variables by 1;
+outputs playerScore and computerScore variables on the console before every loop ends;
+compares playerScore and computerScore values to output a string on the console
+*/
 function game() {
     let playerScore = 0;
     let computerScore = 0;
     
     let i = 0;
     while (i < 5) {
-        let computerSelection = computerTurn().toLowerCase(); //gets the random array item as a selection
-        let playerSelection = prompt("Your turn: Rock, Paper or Scissors?").toLowerCase(); //gets player input as his selection
+        let computerSelection = computerTurn().toLowerCase(); 
+        let playerSelection = prompt("Your turn: Rock, Paper or Scissors?").toLowerCase(); 
         console.log(playRound(playerSelection, computerSelection));
 
-        //checks the result to update the score
         if (getWinner(playerSelection, computerSelection) === true) {
-            playerScore = playerScore + 1;
+            playerScore++  
         } else if (getWinner(playerSelection, computerSelection) === false) {
-            computerScore = computerScore + 1;
+            computerScore++ 
         };
         console.log("Your score: " + playerScore + " " + "Computer score: " + computerScore);
 
         i++;
     };
-    //reports who won the game
+   
     if (playerScore == computerScore) {
-        console.log("Tie Game");
+        console.log("Tie Game!");
     } else if (playerScore > computerScore) {
         console.log("You won the game! Congrats!");
     } else if (computerScore > playerScore) {
-        console.log("Computer won the game!")
+        console.log("The Computer won the game!")
     };
 };
 
