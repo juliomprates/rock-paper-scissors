@@ -1,8 +1,16 @@
+const btns = document.querySelector(".buttons")
+const playerScore = document.querySelector("#player-score");
+const computerScore = document.querySelector("#computer-score");
+const resultText = document.querySelector("#result");
+const replayPlace = document.querySelector(".play-again")
+const playAgain = document.createElement("button");
+playAgain.textContent = "Play Again";
+
 //This function return a random array item to assign it's value on a variable
 function computerTurn() {
     let result;
     const choices = ["Rock", "Paper", "Scissors"];
-    result = choices[(Math.floor(Math.random() * choices.length))];
+    result = choices[(Math.floor(Math.random() * choices.length))].toLowerCase();
     return result;
 };
 
@@ -26,7 +34,6 @@ function getWinner(player, computer) {
 //This function compares 2 values and return a string to be used as output
 function playRound(playerChoice, computerChoice) {
     let result;
-    
     if (playerChoice == computerChoice) {
         result = "The round tied!";
     }else if (getWinner(playerChoice, computerChoice) === true) {
@@ -38,40 +45,35 @@ function playRound(playerChoice, computerChoice) {
     return result;
 };
 
-/*
-This function loops playRound() to be executed 5 times;
-uses getWinner() as condition to increment playerScore or computerScore variables by 1;
-outputs playerScore and computerScore variables on the console before every loop ends;
-compares playerScore and computerScore values to output a string on the console
-*/
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    
-    let i = 0;
-    while (i < 5) {
-        let computerSelection = computerTurn().toLowerCase(); 
-        let playerSelection = prompt("Your turn: Rock, Paper or Scissors?").toLowerCase(); 
-        console.log(playRound(playerSelection, computerSelection));
-
-        if (getWinner(playerSelection, computerSelection) === true) {
-            playerScore++  
-        } else if (getWinner(playerSelection, computerSelection) === false) {
-            computerScore++ 
+btns.addEventListener("click", e => {
+        let result = (playRound(e.target.id, computerTurn()));
+        resultText.textContent = result;
+        if (result.includes("You won") && playerScore.textContent < 5 &&
+        computerScore.textContent < 5) {                    
+            let score = playerScore.textContent;
+            score = parseInt(score) + 1
+            playerScore.textContent = score
+        } else if (result.includes("You lost") && playerScore.textContent < 5 &&
+        computerScore.textContent < 5) {
+            let score = computerScore.textContent;
+            score = parseInt(score) + 1;
+            computerScore.textContent = score
         };
-        console.log("Your score: " + playerScore + " " + "Computer score: " + computerScore);
-
-        i++;
-    };
-   
-    if (playerScore == computerScore) {
-        console.log("Tie Game!");
-    } else if (playerScore > computerScore) {
-        console.log("You won the game! Congrats!");
-    } else if (computerScore > playerScore) {
-        console.log("The Computer won the game!")
-    };
-};
-
-game();
-
+        if (playerScore.textContent == "5") {
+            resultText.textContent = "Player Wins!"
+            replayPlace.append(playAgain);
+            playAgain.addEventListener("click", () => {
+                playerScore.textContent = "0",
+                computerScore.textContent = "0"
+                replayPlace.removeChild(playAgain)
+        })
+        } else if (computerScore.textContent == "5") {
+            resultText.textContent = "Computer Wins!"
+            replayPlace.append(playAgain);
+            playAgain.addEventListener("click", () => {
+                playerScore.textContent = "0",
+                computerScore.textContent = "0"
+                replayPlace.removeChild(playAgain)
+            })
+        }
+});
