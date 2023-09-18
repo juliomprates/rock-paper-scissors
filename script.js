@@ -63,16 +63,18 @@ btns.addEventListener("click", e => {
             resultText.textContent = "Player Wins!"
             replayPlace.append(playAgain);
             playAgain.addEventListener("click", () => {
-                playerScore.textContent = "0",
-                computerScore.textContent = "0"
+                playerScore.textContent = "0";
+                computerScore.textContent = "0";
+                resultText.textContent = " ";
                 replayPlace.removeChild(playAgain)
-        })
+            })
         } else if (computerScore.textContent == "5") {
             resultText.textContent = "Computer Wins!"
             replayPlace.append(playAgain);
             playAgain.addEventListener("click", () => {
-                playerScore.textContent = "0",
-                computerScore.textContent = "0"
+                playerScore.textContent = "0";
+                computerScore.textContent = "0";
+                resultText.textContent = " ";
                 replayPlace.removeChild(playAgain)
             })
         }
